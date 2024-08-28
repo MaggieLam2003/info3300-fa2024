@@ -91,14 +91,23 @@
       // Why does this matter?
       
       
-      
+      let color = "red";
+      document.getElementById("rectangle").setAttribute("fill",color)
+      // cases where color doesn't need to be defined, it gives a default color(no exception)
+      // defines an undefined color object to empty string 
       
       // Comparison weirdness
       // console.log("--- Now trying some comparisons ---")
       
-      
-      
-      
+      console.log( (true + 1) == "2" );
+      // type coercion changes this to be true in js 
+      // happens in confusing situations 
+      console.log([[]] == 0);
+      // works ?! 
+
+      // "===" triple equals avoids type coercion - gives morepredictable behavior 
+      console.log(NaN == NaN)
+      // comes out to flase
 
       // Shortcircuiting of logical statements
       // console.log("--- Shortcircuiting ---");
