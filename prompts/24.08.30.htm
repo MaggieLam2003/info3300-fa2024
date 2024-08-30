@@ -68,11 +68,48 @@
     //    We have three different declarations, var, const, and let
     //    Var came earlier, const & let more recently
     //    (only use VAR if you really mean it!)
+
+    let fruit = "mango";
+    var veg = "broccoli";
+    const legume = "lentil";
+
+    console.log("---start");  
+    console.log(fruit);  
+    console.log(veg);  
+    console.log(legume);  
+
+    if (fruit === "mango") {
+      // if you remove let, it will also be apple outside of the in if 
+      // should use LET because it follows typically coding 
+      let fruit = "apple";
+      // you dont need to keep var , can just be veg= "leek"
+      var veg = "leek";
+      // const doesn't let you change it once you use it 
+      // const legume = "long bean";
+
+      console.log("---in if");  
+      console.log(fruit);  
+      console.log(veg);  
+      console.log(legume);  
+    }
+    // for var, it changed outside of the in if 
+
+    console.log("end");  
+    console.log(fruit);  
+    console.log(veg);  
+    console.log(legume);  
     
     
           
     // Let's look at *hoisting* of variables
-    
+    console.log(x);
+    // with var become "undefined"
+    // let x = 5;
+    var x = 5;
+    // should throw an error but doesn't var knows x before you read it 
+    console.log(x);
+
+
     
     
   
@@ -83,10 +120,43 @@
     
     // If statements:
     
-    
+    let y=3;
+    if (y === 3) {console.log("equals 3"); }
+    else if (y ===5) {console.log ("eqaks 5");}
+    else { {console.log("else");}}
     
     // Functions:
+    console.log( favoriteColor());
+    // somehow still gives you red even tho its run before 
+
+    function favoriteColor(param1, param2) {
+      return "red";
+    }
+
+    console.log( favoriteColor());
+
+    let favoriteNumber = function () {return 8;}
+
+    console.log( favoriteNumber());
+
+    function display (f) {
+      console.log(f());
+    }
+
+    display (favoriteColor)
+    display (favoriteNumber)
+
+    // function addOne (number) {
+    //   return function () {return number + 1}
+    // }
+    console.log( addOne(3)());
     
+    let bestAnimal = () => {console.log("dog");}
+    bestAnimal();
+    let addNum = (num1, num2) => {return num1+num2;}
+    let addOne = num => num+1
+
+    console.log( addNum(2,6));
   
 
     
@@ -97,34 +167,61 @@
     //  (Credit for some examples goes to https://codeburst.io/es6-destructuring-the-complete-guide-7f842d08b98f -- check this out for lots of other capabilities and examples of destructuring)
     
     
-    // let color = [24, 50, 240];
+    let color = [24, 50, 240];
     // let r = color[0];
     // let g = color[1];
     // let b = color[2];
-    // console.log(r,g,b);
+    let [r,g,b] = color;
+    console.log(r,g,b);
     
     
-    // let student = {name: "Herb Ertlinger", class: "INFO3300", age:21};
-    // 
+    let student = {name: "Herb Ertlinger", class: "INFO3300", age:21};
+    
     // function printStudent( student ) {   // It also works when function parameters are declared!
     //   console.log(student.name, student.class);
     // }
     // printStudent(student);
+
+    function printStudent( {name: nm, class:cls, age: a} ) {   // It also works when function parameters are declared!
+      console.log(nm, cls);
+    }
+    printStudent(student);
     
     
-    // let width = 50;
-    // let height = 100;
+    let width = 50;
+    let height = 100;
     // 
     // let t = width;
     // let width = height;
     // let height = t;
+
+    [width, height] = [height, width];
     // 
-    // console.log(width, height);
+    console.log(width, height);
 
     
     // * Now a bit of looping
-    // let list = ["red","green","blue","yellow"];
+    let list = ["red","green","blue","yellow"];
+
+    for (let i=0; i < list.length; i++) {
+      console.log(list[i]);
+    }
     
+    for (let index in list) {
+      console.log(index);
+    }
+    // "in" gives the index not the content in the lis t
+
+    for (let object of list){
+      console.log(object)
+    }
+    //  "of" works more like python 
+
+    // function eachFunction(d) {console.log(d)}
+
+    list.forEach(d => {
+      console.log(d)
+    }) 
     
     
     
