@@ -64,9 +64,72 @@
     //  Instead, we'll make a thick vertical <line> for each bar. I don't recommend you do this outside of toy examples
     console.log(passengers);
     
+    let svg = d3.select("svg#all");
+    let width = svg.attr("width");
+    let height = svg.attr("height");
+
+    let ageScale = d3.scaleLinear()
+                     .domain([0,80]) //input /data - have to put in an array 
+                     .range([10,height-10]); //output/pixel
+
+    // d3.max (array function d )
+    let maxLived = d3.max(passengers, d => d['lived']);
+    let maxDied = d3.max(passengers, d => d['died']);
+    let maxMortality = Math.max(maxLived,maxDied);
+    console.log(maxMortality);
+
+    let liveScale = d3.scaleLinear()
+                      .domain([0,200]) //input /data - have to put in an array 
+                      .range([height/2,0, 10]); //output/pixel
     
+    let diedScale = d3.scaleLinear()
+                      .domain([0, maxMortality])
+                      .range([height/2.0,height-10]);
+
+    console.log(ageScale);
     
+    passengers.forEach ((d,i) => {
+      svg.append("line")
+          .attr("x1", ageScale(d['age']))
+          .attr("x2", ageScale(d['age']))
+          .attr("y1",height/2.0)
+          .attr("y2",  liveScale(d['lived']))
+
+          .style("stroke", "#5555F0")
+          .style("stroke-width", 10);
+
+      svg.append("line") //died
+          .attr("x1", ageScale(d['age']))
+          .attr("x2", ageScale(d['age']))
+
+          .attr("y1",height/2.0)
+          .attr("y2",  diedScale(d['died']))
+
+          .style("stroke", "#F05555")
+          .style("stroke-width", 10);
+
+      svg.append("text")
+          .attr("x", ageScale(d['age']))
+          .attr("y", liveScale(d['lived'])-10)
+
+          .attr("text-anchor", "middle")
+          .attr("font-size","10px")
+          .text(d['age'])
+    } );
     
+    passengersFemale.forEach( d => {
+      d['percentSurvived'] = d['lived'] / d['lived'] + d['died']
+    })
+
+    passengersMale.forEach( d => {
+      if ((d.lived + d.died) <1) {
+        d.percentSurvived = 0;
+      }
+      else {
+       d['percentSurvived'] = d['lived'] / d['lived'] + d['died']
+      }
+      
+    })
     
     // --- 2. What about deaths? (oop, things are getting pretty dark)
     //  We can make a double histogram for this!
